@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AB Fast Food | Royal Challengers Bangalore</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rcb-red: #EC1C24;
+    --rcb-gold: #FFD700;
+    --rcb-dark: #0a0a0a;
+    --rcb-black: #111111;
+    --rcb-charcoal: #1a1a1a;
+    --rcb-silver: #c0c0c0;
+    --rcb-light: #f5f5f5;
+    --rcb-red-glow: rgba(236,28,36,0.4);
+    --rcb-gold-glow: rgba(255,215,0,0.3);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--rcb-dark); color: var(--rcb-light); font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--rcb-black); }
+  ::-webkit-scrollbar-thumb { background: var(--rcb-red); border-radius: 3px; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.5;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(10,10,10,0.96); border-bottom: 2px solid var(--rcb-red);
+    backdrop-filter: blur(12px); display: flex; align-items: center;
+    justify-content: space-between; padding: 0 4rem; height: 70px;
+    box-shadow: 0 4px 30px rgba(236,28,36,0.2);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; }
+  .nav-logo .badge {
+    width: 44px; height: 44px; background: var(--rcb-red); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff;
+    border: 2px solid var(--rcb-gold); animation: pulse-badge 2s infinite;
+  }
+  @keyframes pulse-badge { 0%,100%{box-shadow:0 0 12px var(--rcb-red-glow);} 50%{box-shadow:0 0 28px rgba(236,28,36,0.8);} }
+  .nav-logo h1 { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 3px; }
+  .nav-logo h1 span { color: var(--rcb-gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--rcb-silver);
+    font-family: 'Oswald', sans-serif; font-size: 0.9rem;
+    letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s;
+    position: relative; padding-bottom: 4px;
+  }
+  .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--rcb-gold); transition: width 0.3s; }
+  .nav-links a:hover { color: var(--rcb-gold); }
+  .nav-links a:hover::after { width: 100%; }
+  .insta-nav-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+    color: #fff; padding: 8px 16px; border-radius: 20px;
+    font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 2px;
+    text-decoration: none; text-transform: uppercase; cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(220,39,67,0.4);
+  }
+  .insta-nav-btn:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(220,39,67,0.6); }
+  .insta-nav-btn svg { width: 16px; height: 16px; fill: #fff; flex-shrink: 0; }
+
+  /* TICKER */
+  .ticker-wrap { background: var(--rcb-red); padding: 10px 0; overflow: hidden; white-space: nowrap; }
+  .ticker { display: inline-block; animation: ticker-scroll 30s linear infinite; font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
+  .ticker span { margin: 0 3rem; }
+  @keyframes ticker-scroll { from{transform:translateX(100vw);} to{transform:translateX(-100%);} }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center,#1a0305 0%,var(--rcb-dark) 70%); text-align: center; padding: 2rem; }
+  .hero-bg-pattern { position: absolute; inset: 0; opacity: 0.04; background-image: repeating-linear-gradient(45deg,var(--rcb-red) 0,var(--rcb-red) 1px,transparent 0,transparent 50%),repeating-linear-gradient(-45deg,var(--rcb-red) 0,var(--rcb-red) 1px,transparent 0,transparent 50%); background-size: 30px 30px; }
+  .hero-flame { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse at bottom,rgba(236,28,36,0.3) 0%,transparent 70%); filter: blur(40px); animation: flame-flicker 3s ease-in-out infinite; }
+  @keyframes flame-flicker { 0%,100%{transform:translateX(-50%) scaleY(1);opacity:0.7;} 50%{transform:translateX(-50%) scaleY(1.2);opacity:1;} }
+  .hero-tag { font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 5px; text-transform: uppercase; color: var(--rcb-gold); margin-bottom: 1rem; animation: fadeDown 1s ease both; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem,12vw,9rem); line-height: 0.9; letter-spacing: 4px; animation: fadeDown 1s ease 0.2s both; }
+  .hero-title .line1 { color: #fff; display: block; }
+  .hero-title .line2 { color: var(--rcb-red); text-shadow: 0 0 40px var(--rcb-red-glow); display: block; }
+  .hero-title .line3 { color: var(--rcb-gold); display: block; font-size: 60%; }
+  .hero-sub { margin-top: 1.5rem; font-size: 1.1rem; color: var(--rcb-silver); letter-spacing: 2px; max-width: 520px; animation: fadeDown 1s ease 0.4s both; }
+  .hero-cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: fadeDown 1s ease 0.6s both; }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+  .scroll-indicator { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; color: var(--rcb-red); font-size: 1.5rem; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(10px)} }
+
+  /* BUTTONS */
+  .btn-primary { padding: 14px 36px; background: var(--rcb-red); color: #fff; border: none; cursor: pointer; font-family: 'Oswald', sans-serif; font-size: 1rem; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.3s; box-shadow: 0 0 20px var(--rcb-red-glow); display: inline-block; }
+  .btn-primary:hover { background: #ff2a31; box-shadow: 0 0 40px rgba(236,28,36,0.6); transform: translateY(-2px); }
+  .btn-secondary { padding: 14px 36px; background: transparent; color: var(--rcb-gold); border: 2px solid var(--rcb-gold); cursor: pointer; font-family: 'Oswald', sans-serif; font-size: 1rem; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.3s; display: inline-block; }
+  .btn-secondary:hover { background: var(--rcb-gold); color: var(--rcb-dark); box-shadow: 0 0 30px var(--rcb-gold-glow); transform: translateY(-2px); }
+
+  /* COMMON */
+  section { padding: 100px 4rem; }
+  .section-tag { font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase; color: var(--rcb-red); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem,5vw,4rem); letter-spacing: 3px; line-height: 1; margin-bottom: 1.5rem; }
+  .section-title span { color: var(--rcb-gold); }
+  .gold-line { width: 60px; height: 3px; background: linear-gradient(90deg,var(--rcb-red),var(--rcb-gold)); margin-bottom: 2rem; }
+
+  /* ABOUT */
+  #about { background: var(--rcb-charcoal); position: relative; overflow: hidden; }
+  #about::before { content: 'RCB'; position: absolute; right: -40px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 20rem; color: rgba(236,28,36,0.04); pointer-events: none; line-height: 1; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .stat-card { background: var(--rcb-black); border: 1px solid rgba(236,28,36,0.3); padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--rcb-red); }
+  .stat-card:hover { border-color: var(--rcb-gold); transform: translateY(-4px); }
+  .stat-card:hover::before { background: var(--rcb-gold); }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--rcb-red); line-height: 1; }
+  .stat-label { font-size: 0.85rem; color: #888; letter-spacing: 2px; text-transform: uppercase; }
+  .rcb-crest { width: 100%; max-width: 400px; margin: 0 auto; display: block; background: var(--rcb-black); border: 2px solid var(--rcb-red); padding: 3rem; box-shadow: 0 0 60px rgba(236,28,36,0.2),inset 0 0 40px rgba(236,28,36,0.05); }
+  .crest-inner { text-align: center; }
+  .crest-icon { font-size: 5rem; line-height: 1; }
+  .crest-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--rcb-red); letter-spacing: 4px; margin-top: 0.5rem; }
+  .crest-sub { font-size: 0.75rem; letter-spacing: 4px; color: var(--rcb-gold); text-transform: uppercase; }
+  .crest-motto { margin-top: 1.5rem; font-size: 1rem; color: #aaa; font-style: italic; border-top: 1px solid rgba(255,215,0,0.3); padding-top: 1rem; }
+
+  /* MENU */
+  #menu { background: var(--rcb-dark); }
+  .menu-header { text-align: center; margin-bottom: 3rem; }
+  .menu-tabs { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .tab-btn { padding: 10px 28px; background: transparent; border: 2px solid rgba(255,255,255,0.15); color: #888; cursor: pointer; font-family: 'Oswald', sans-serif; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); }
+  .tab-btn:hover,.tab-btn.active { border-color: var(--rcb-red); color: #fff; background: rgba(236,28,36,0.15); }
+  .tab-btn.active { background: var(--rcb-red); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  /* MENU CARD */
+  .menu-card { background: var(--rcb-charcoal); border: 1px solid rgba(255,255,255,0.06); overflow: hidden; position: relative; transition: transform 0.3s,border-color 0.3s,box-shadow 0.3s; border-radius: 4px; }
+  .menu-card:hover { transform: translateY(-6px); border-color: rgba(236,28,36,0.5); box-shadow: 0 20px 40px rgba(0,0,0,0.5),0 0 20px rgba(236,28,36,0.15); }
+  .card-img-wrap { width: 100%; height: 200px; overflow: hidden; position: relative; }
+  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; filter: brightness(0.92) saturate(1.2); }
+  .menu-card:hover .card-img-wrap img { transform: scale(1.08); }
+  .card-img-overlay { position: absolute; inset: 0; background: linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.7) 100%); }
+  .card-badge { position: absolute; top: 12px; right: 12px; background: var(--rcb-red); color: #fff; font-family: 'Oswald', sans-serif; font-size: 0.7rem; letter-spacing: 2px; padding: 3px 10px; z-index: 2; clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%); }
+  .card-badge.gold { background: var(--rcb-gold); color: var(--rcb-dark); }
+  .card-badge.new { background: #00c851; }
+  .card-body { padding: 1.2rem 1.5rem 1.5rem; }
+  .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 2px; color: #fff; margin-bottom: 0.35rem; }
+  .card-desc { font-size: 0.87rem; color: #888; line-height: 1.6; margin-bottom: 1rem; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; }
+  .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--rcb-gold); }
+  .card-price span { font-size: 0.85rem; color: #666; font-family: 'Rajdhani', sans-serif; }
+  .order-btn { padding: 8px 18px; background: rgba(236,28,36,0.2); border: 1px solid var(--rcb-red); color: var(--rcb-red); cursor: pointer; font-family: 'Oswald', sans-serif; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s; clip-path: polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%); }
+  .order-btn:hover { background: var(--rcb-red); color: #fff; }
+  .order-btn.added { background: var(--rcb-gold); border-color: var(--rcb-gold); color: var(--rcb-dark); }
+
+  /* CART FAB */
+  .cart-fab {
+    position: fixed; bottom: 28px; right: 28px; z-index: 1200;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--rcb-red); border: 2px solid var(--rcb-gold);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.6rem; box-shadow: 0 4px 25px rgba(236,28,36,0.5);
+    transition: transform 0.3s; animation: pulse-badge 2.5s infinite;
+  }
+  .cart-fab:hover { transform: scale(1.08); }
+  .cart-fab .cart-count {
+    position: absolute; top: -6px; right: -6px; background: var(--rcb-gold);
+    color: var(--rcb-dark); font-family: 'Oswald', sans-serif; font-weight: 700;
+    font-size: 0.75rem; width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--rcb-dark);
+  }
+
+  /* CART OVERLAY + DRAWER */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1300;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; visibility: visible; }
+  .cart-drawer {
+    position: fixed; top: 0; right: -420px; width: 400px; max-width: 92vw; height: 100%;
+    background: var(--rcb-charcoal); border-left: 2px solid var(--rcb-red); z-index: 1400;
+    display: flex; flex-direction: column; transition: right 0.35s ease;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.6);
+  }
+  .cart-drawer.open { right: 0; }
+  .cart-drawer-header {
+    padding: 1.3rem 1.5rem; border-bottom: 2px solid var(--rcb-red);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cart-drawer-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: var(--rcb-gold); }
+  .cart-close-btn { background: none; border: none; color: var(--rcb-silver); font-size: 1.6rem; cursor: pointer; line-height: 1; }
+  .cart-close-btn:hover { color: var(--rcb-red); }
+  .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+  .cart-empty { text-align: center; color: #777; padding: 3rem 1rem; font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
+  .cart-item { display: flex; gap: 0.9rem; padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+  .cart-item-info { flex: 1; min-width: 0; }
+  .cart-item-name { font-family: 'Oswald', sans-serif; font-size: 0.9rem; color: #fff; margin-bottom: 0.3rem; }
+  .cart-item-price { color: var(--rcb-gold); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; }
+  .cart-qty-controls { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem; }
+  .cart-qty-controls button {
+    width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--rcb-red);
+    background: transparent; color: var(--rcb-red); cursor: pointer; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center; line-height: 1;
+  }
+  .cart-qty-controls button:hover { background: var(--rcb-red); color: #fff; }
+  .cart-qty-controls span { min-width: 20px; text-align: center; font-family: 'Oswald', sans-serif; }
+  .cart-item-remove { background: none; border: none; color: #666; cursor: pointer; font-size: 0.85rem; align-self: flex-start; }
+  .cart-item-remove:hover { color: var(--rcb-red); }
+  .cart-drawer-footer { padding: 1.3rem 1.5rem; border-top: 2px solid var(--rcb-red); }
+  .cart-total-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
+  .cart-total-row span:first-child { color: var(--rcb-silver); font-family: 'Oswald', sans-serif; letter-spacing: 1px; }
+  .cart-total-row span:last-child { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--rcb-gold); }
+  .checkout-btn { width: 100%; }
+
+  /* CHECKOUT MODAL */
+  .checkout-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1500;
+    display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+    opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
+  }
+  .checkout-modal-overlay.open { opacity: 1; visibility: visible; }
+  .checkout-modal {
+    background: var(--rcb-charcoal); border: 2px solid var(--rcb-red); border-radius: 6px;
+    max-width: 440px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 2rem;
+  }
+  .checkout-modal h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--rcb-gold); margin-bottom: 1.2rem; letter-spacing: 2px; }
+  .checkout-modal .form-group { margin-bottom: 1rem; }
+  .checkout-summary { background: var(--rcb-black); border: 1px solid rgba(236,28,36,0.3); border-radius: 4px; padding: 0.9rem 1rem; margin-bottom: 1.2rem; font-size: 0.85rem; color: #aaa; }
+  .checkout-summary div { display: flex; justify-content: space-between; padding: 2px 0; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 100px; right: 28px; z-index: 1600;
+    background: var(--rcb-black); border: 1px solid var(--rcb-gold); color: #fff;
+    padding: 12px 20px; border-radius: 4px; font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem; letter-spacing: 1px; transform: translateX(120%); opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .toast.show { transform: translateX(0); opacity: 1; }
+  @media (max-width: 600px) {
+    .cart-fab { bottom: 20px; right: 20px; width: 54px; height: 54px; }
+    .toast { right: 16px; left: 16px; bottom: 90px; }
+  }
+
+  /* SPECIALS BANNER */
+  .specials-banner { background: linear-gradient(135deg,var(--rcb-red) 0%,#8b0000 100%); padding: 4rem; margin: 2rem 0; position: relative; overflow: hidden; text-align: center; }
+  .specials-banner::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+  .specials-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 4px; position: relative; }
+  .specials-banner p { color: rgba(255,255,255,0.85); margin: 0.5rem 0 1.5rem; font-size: 1rem; letter-spacing: 1px; position: relative; }
+
+  /* RCB SPECIALS */
+  #rcb-specials { background: var(--rcb-dark); }
+  .specials-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 1.5rem; max-width: 1200px; margin: 3rem auto 0; }
+  .special-card { background: var(--rcb-charcoal); border: 1px solid rgba(255,215,0,0.15); overflow: hidden; transition: all 0.3s; position: relative; border-radius: 4px; }
+  .special-card-img { width: 100%; height: 160px; object-fit: cover; filter: brightness(0.9) saturate(1.2); transition: transform 0.5s; display: block; }
+  .special-card:hover .special-card-img { transform: scale(1.07); }
+  .special-card-body { padding: 1.2rem; text-align: center; }
+  .special-card:hover { border-color: var(--rcb-gold); transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .special-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 2px; color: var(--rcb-gold); margin-bottom: 0.4rem; }
+  .special-desc { font-size: 0.85rem; color: #777; line-height: 1.6; margin-bottom: 0.8rem; }
+  .special-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--rcb-red); }
+
+  /* VIBES */
+  #vibes { background: var(--rcb-charcoal); text-align: center; }
+  .vibes-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; max-width: 1200px; margin: 3rem auto 0; }
+  .vibe-card { background: var(--rcb-black); border: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 1.5rem; transition: all 0.3s; position: relative; overflow: hidden; }
+  .vibe-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg,var(--rcb-red),var(--rcb-gold)); transform: scaleX(0); transition: transform 0.4s; transform-origin: left; }
+  .vibe-card:hover::after { transform: scaleX(1); }
+  .vibe-card:hover { border-color: rgba(236,28,36,0.3); transform: translateY(-4px); }
+  .vibe-card.featured { grid-column: span 2; background: linear-gradient(135deg,#1a0305,var(--rcb-charcoal)); border-color: rgba(236,28,36,0.3); }
+  .vibe-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .vibe-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; color: #fff; margin-bottom: 0.5rem; }
+  .vibe-desc { font-size: 0.9rem; color: #888; line-height: 1.7; }
+
+  /* INSTAGRAM SECTION */
+  #instagram { background: var(--rcb-dark); text-align: center; padding: 80px 4rem; }
+  .insta-card { max-width: 480px; margin: 2rem auto 0; background: linear-gradient(145deg,#1a1a1a,#111); border: 1px solid rgba(255,255,255,0.08); padding: 2.5rem 2rem; position: relative; overflow: hidden; border-radius: 8px; }
+  .insta-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(240,148,51,0.05),rgba(220,39,67,0.05),rgba(188,24,136,0.05)); }
+  .insta-avatar { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 1rem; background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; box-shadow: 0 0 0 3px #111,0 0 0 5px #dc2743; position: relative; }
+  .insta-handle { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 3px; color: #fff; margin-bottom: 0.3rem; position: relative; }
+  .insta-handle span { color: var(--rcb-gold); }
+  .insta-bio { font-size: 0.9rem; color: #888; margin-bottom: 1.5rem; line-height: 1.7; position: relative; }
+  .insta-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 36px; background: linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color: #fff; border: none; cursor: pointer; font-family: 'Oswald', sans-serif; font-size: 1rem; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; border-radius: 6px; transition: all 0.3s; box-shadow: 0 6px 20px rgba(220,39,67,0.4); position: relative; }
+  .insta-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(220,39,67,0.5); filter: brightness(1.1); }
+  .insta-btn svg { width: 20px; height: 20px; fill: #fff; }
+
+  /* CONTACT */
+  #contact { background: var(--rcb-charcoal); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto; }
+  .info-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 2rem; }
+  .info-icon { width: 48px; height: 48px; flex-shrink: 0; background: rgba(236,28,36,0.15); border: 1px solid rgba(236,28,36,0.3); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); }
+  .info-text h4 { font-family: 'Oswald', sans-serif; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; color: var(--rcb-red); margin-bottom: 0.3rem; }
+  .info-text p { color: #aaa; font-size: 0.95rem; line-height: 1.6; }
+  .reservation-form { background: var(--rcb-black); border: 1px solid rgba(236,28,36,0.2); padding: 2.5rem; }
+  .reservation-form h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 3px; margin-bottom: 1.5rem; color: var(--rcb-gold); }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 0.5rem; }
+  .form-group input,.form-group select,.form-group textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 12px 16px; font-family: 'Rajdhani', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color: var(--rcb-red); background: rgba(236,28,36,0.05); }
+  .form-group select option { background: var(--rcb-black); }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* FOOTER */
+  footer { background: var(--rcb-black); border-top: 2px solid var(--rcb-red); padding: 3rem 4rem; text-align: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 5px; margin-bottom: 0.5rem; }
+  .footer-logo span { color: var(--rcb-red); }
+  .footer-logo em { color: var(--rcb-gold); font-style: normal; }
+  .footer-tagline { color: #666; font-size: 0.85rem; letter-spacing: 3px; margin-bottom: 1.5rem; }
+  .footer-insta { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(220,39,67,0.3); }
+  .footer-insta:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(220,39,67,0.5); }
+  .footer-insta svg { width: 14px; height: 14px; fill: #fff; }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; list-style: none; margin-bottom: 2rem; flex-wrap: wrap; }
+  .footer-links a { color: #666; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--rcb-gold); }
+  .footer-copy { color: #444; font-size: 0.8rem; }
+  .footer-copy span { color: var(--rcb-red); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.2rem; }
+    .nav-links { display: none; }
+    section { padding: 60px 1.5rem; }
+    #instagram { padding: 60px 1.5rem; }
+    .about-grid,.contact-grid { grid-template-columns: 1fr; }
+    .vibes-grid { grid-template-columns: 1fr; }
+    .vibe-card.featured { grid-column: span 1; }
+    footer { padding: 2rem 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .hero-title { font-size: 3.5rem; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+  .text-center { text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">
+    <div class="badge">AB</div>
+    <h1>AB <span>FAST FOOD</span></h1>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#rcb-specials">RCB Specials</a></li>
+    <li><a href="#vibes">Vibes</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li>
+      <a href="https://www.instagram.com/_crixx_giri_17?igsh=MWZtbHE2b2phdzhzNA==" target="_blank" class="insta-nav-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- CART FAB -->
+<div class="cart-fab" onclick="openCart()">
+  🛒
+  <span class="cart-count" id="cartCount" style="display:none;">0</span>
+</div>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h3>🏏 Your Order</h3>
+    <button class="cart-close-btn" onclick="closeCart()">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItemsContainer">
+    <div class="cart-empty">Your cart is empty.<br>Go bold, add some food! 🔴</div>
+  </div>
+  <div class="cart-drawer-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total-row"><span>Total</span><span id="cartTotal">₹0</span></div>
+    <button class="btn-primary checkout-btn" onclick="openCheckout()">Proceed to Checkout 🏏</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-modal-overlay" id="checkoutOverlay" onclick="if(event.target===this)closeCheckout()">
+  <div class="checkout-modal">
+    <h3>🔴 Confirm Your Order</h3>
+    <div class="checkout-summary" id="checkoutSummary"></div>
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" id="custName" placeholder="Enter your name">
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" id="custPhone" placeholder="+91 XXXXX XXXXX">
+    </div>
+    <div class="form-group">
+      <label>Delivery / Pickup Address</label>
+      <textarea id="custAddress" placeholder="Address, or write 'Dine-in' / 'Takeaway'"></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%;text-align:center;display:block;margin-top:0.5rem;" onclick="placeOrder()">
+      Place Order 🏏
+    </button>
+    <button class="btn-secondary" style="width:100%;text-align:center;display:block;margin-top:0.7rem;" onclick="closeCheckout()">
+      Back to Cart
+    </button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<!-- TICKER -->
+<div style="margin-top:70px" class="ticker-wrap">
+  <div class="ticker">
+    <span>🔥 EE SALA CUP NAMDE</span>
+    <span>🏏 AB FAST FOOD — ROYAL CHALLENGERS BANGALORE</span>
+    <span>🍛 AUTHENTIC TAMIL NADU FLAVOURS</span>
+    <span>🌶️ BOLD FOOD FOR BOLD FANS</span>
+    <span>⚡ PLAY BOLD. EAT BOLD.</span>
+    <span>🔴 RED & GOLD — OUR COLORS, OUR PRIDE</span>
+    <span>🫙 KALLAKURICHI'S #1 FAN RESTAURANT</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-flame"></div>
+  <p class="hero-tag">🏏 Official Fan Food — Royal Challengers Bangalore</p>
+  <h1 class="hero-title">
+    <span class="line1">AB</span>
+    <span class="line2">FAST FOOD</span>
+    <span class="line3">Play Bold. Eat Bold.</span>
+  </h1>
+  <p class="hero-sub">Authentic Tamil Nadu Flavours — Served with RCB Fire in Kallakurichi</p>
+  <div class="hero-cta">
+    <a href="#menu" class="btn-primary">Explore Menu</a>
+    <a href="#contact" class="btn-secondary">Reserve a Table</a>
+  </div>
+  <div class="scroll-indicator">▼</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-tag">About Us</p>
+      <h2 class="section-title">AB <span>Fast Food</span></h2>
+      <div class="gold-line"></div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label">Menu Items</div></div>
+        <div class="stat-card"><div class="stat-num">2018</div><div class="stat-label">Est. Year</div></div>
+        <div class="stat-card"><div class="stat-num">500+</div><div class="stat-label">Daily Fans Served</div></div>
+        <div class="stat-card"><div class="stat-num">4.8★</div><div class="stat-label">Fan Rating</div></div>
+      </div>
+    </div>
+    <div class="about-image-side">
+      <div class="rcb-crest">
+        <div class="crest-inner">
+          <div class="crest-icon">🏆</div>
+          <div class="crest-name">RCB</div>
+          <div class="crest-sub">Royal Challengers Bangalore</div>
+          <div class="crest-motto">"Play Bold. Eat Bold. Live Bold."</div>
+          <div style="margin-top:1.5rem;display:flex;gap:0.5rem;justify-content:center;font-size:2rem;">🔴 ⚫ 🟡</div>
+          <div style="margin-top:1rem;font-size:0.75rem;letter-spacing:3px;color:var(--rcb-silver);text-transform:uppercase;">Est. 2008 · Bangalore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header">
+    <p class="section-tag">Tamil Nadu Cuisine</p>
+    <h2 class="section-title">Our <span>Menu</span></h2>
+    <div class="gold-line" style="margin:0 auto 1rem;"></div>
+    <p style="color:#888;max-width:500px;margin:0 auto;">Authentic Tamil flavours. Stadium-worthy portions. Every bite a celebration.</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('rice')">🍛 Rice &amp; Biryani</button>
+    <button class="tab-btn" onclick="showTab('tiffin')">🥘 Tiffin</button>
+    <button class="tab-btn" onclick="showTab('snacks')">🌶️ Snacks</button>
+    <button class="tab-btn" onclick="showTab('curries')">🍲 Curries</button>
+    <button class="tab-btn" onclick="showTab('drinks')">☕ Drinks</button>
+    <button class="tab-btn" onclick="showTab('sweets')">🍮 Sweets</button>
+  </div>
+
+  <!-- RICE & BIRYANI -->
+  <div id="tab-rice" class="menu-panel active">
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-badge gold">BESTSELLER</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80" alt="Chicken Biryani" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Dindigul Chicken Biryani</div>
+          <div class="card-desc">Aromatic Seeraga Samba rice with Karaikudi-spiced chicken, whole masalas & raita. The crown jewel of Tamil Nadu biryanis.</div>
+          <div class="card-footer">
+            <div class="card-price">₹180 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge new">SPECIAL</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=600&q=80" alt="Mutton Biryani" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Ambur Mutton Biryani</div>
+          <div class="card-desc">Slow-cooked mutton with Ambur-style spice blend on Seeraga Samba rice. Rich, bold & absolutely irresistible.</div>
+          <div class="card-footer">
+            <div class="card-price">₹220 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge">VEG</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80" alt="Chettinad Veg Rice" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Chettinad Veg Rice</div>
+          <div class="card-desc">Fragrant rice with Chettinad spices, mixed vegetables, cashews & curry leaves. A bold veggie delight.</div>
+          <div class="card-footer">
+            <div class="card-price">₹130 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIFFIN -->
+  <div id="tab-tiffin" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-badge gold">CLASSIC</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=600&q=80" alt="Masala Dosa" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Crispy Masala Dosa</div>
+          <div class="card-desc">Golden crispy rice & lentil crepe stuffed with spiced potato masala, served with sambar & 3 chutneys.</div>
+          <div class="card-footer">
+            <div class="card-price">₹80 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge">POPULAR</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1630383249896-483b843a1c3e?w=600&q=80" alt="Idli Sambar" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Idli Sambar Combo</div>
+          <div class="card-desc">Fluffy steamed rice cakes with piping hot sambar & coconut chutney. The soul of Tamil Nadu mornings.</div>
+          <div class="card-footer">
+            <div class="card-price">₹60 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge new">NEW</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80" alt="Ven Pongal" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Ven Pongal</div>
+          <div class="card-desc">Creamy rice & moong dal cooked with ghee, pepper, cumin & cashews. Tamil Nadu comfort at its finest.</div>
+          <div class="card-footer">
+            <div class="card-price">₹70 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SNACKS -->
+  <div id="tab-snacks" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-badge gold">FAN FAV</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&q=80" alt="Bajji" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Milagu Bajji</div>
+          <div class="card-desc">Crispy pepper-spiced fritters with banana peppers, potato & raw banana — Tamil Nadu's favourite evening snack.</div>
+          <div class="card-footer">
+            <div class="card-price">₹50 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge">SPICY</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" alt="Chicken 65" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Chicken 65</div>
+          <div class="card-desc">Deep-fried chicken marinated in yoghurt, red chilli & spices. Chennai's iconic snack, served blazing hot.</div>
+          <div class="card-footer">
+            <div class="card-price">₹130 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge new">STREET</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=600&q=80" alt="Sundal" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Kara Sundal</div>
+          <div class="card-desc">Spiced chickpeas tempered with mustard, curry leaves, red chilli & grated coconut. Street food royalty.</div>
+          <div class="card-footer">
+            <div class="card-price">₹45 <span>/ cup</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRIES -->
+  <div id="tab-curries" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-badge gold">SIGNATURE</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600&q=80" alt="Chettinad Curry" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Chettinad Chicken Curry</div>
+          <div class="card-desc">Fiery Chettinad masala with kalpasi, marathi mokku & whole spices. Best with parotta or rice.</div>
+          <div class="card-footer">
+            <div class="card-price">₹160 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge">VEG</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80" alt="Sambar" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Kathirikkai Sambar</div>
+          <div class="card-desc">Tangy tamarind-based brinjal sambar with drumstick, toor dal & fresh curry leaves. A true Tamil classic.</div>
+          <div class="card-footer">
+            <div class="card-price">₹80 <span>/ bowl</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge new">HOT</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=600&q=80" alt="Fish Curry" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Meen Kuzhambu</div>
+          <div class="card-desc">Traditional fish curry in tangy tamarind gravy. Coastal Tamil Nadu on a plate — pairs best with steamed rice.</div>
+          <div class="card-footer">
+            <div class="card-price">₹170 <span>/ plate</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRINKS -->
+  <div id="tab-drinks" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-badge gold">SIGNATURE</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600&q=80" alt="Filter Coffee" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Degree Filter Coffee</div>
+          <div class="card-desc">Traditional South Indian filter coffee — Kumbakonam decoction, frothed in steel tumbler & davara. Pure bliss.</div>
+          <div class="card-footer">
+            <div class="card-price">₹40 <span>/ glass</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge">COOLING</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=600&q=80" alt="Buttermilk" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Spiced Buttermilk (Mor)</div>
+          <div class="card-desc">Chilled buttermilk tempered with ginger, green chilli, curry leaves & asafoetida. The ultimate Tamil thirst quencher.</div>
+          <div class="card-footer">
+            <div class="card-price">₹35 <span>/ glass</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge new">SUMMER</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1590393802688-9c94e38e5879?w=600&q=80" alt="Nannari Sherbet" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Nannari Sherbet</div>
+          <div class="card-desc">Cooling Nannari syrup with lemon & a hint of rose — Tamil Nadu's most beloved summer cooler.</div>
+          <div class="card-footer">
+            <div class="card-price">₹50 <span>/ glass</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SWEETS -->
+  <div id="tab-sweets" class="menu-panel">
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="card-badge gold">MUST TRY</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1666190134145-8af5c8e6fb37?w=600&q=80" alt="Tirunelveli Halwa" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Tirunelveli Halwa</div>
+          <div class="card-desc">The legendary wheat halwa from Tirunelveli — amber-coloured, ghee-drenched & incredibly rich. A true TN icon.</div>
+          <div class="card-footer">
+            <div class="card-price">₹70 <span>/ piece</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge">SWEET</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1598311304952-bc0cb72a09bc?w=600&q=80" alt="Payasam" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Semiya Payasam</div>
+          <div class="card-desc">Vermicelli cooked in milk with cardamom, cashews & raisins. Temple-style sweetness in every spoon.</div>
+          <div class="card-footer">
+            <div class="card-price">₹60 <span>/ bowl</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="card-badge new">NEW</div>
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=600&q=80" alt="Ice Cream" loading="lazy">
+          <div class="card-img-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Paal Ice Cream</div>
+          <div class="card-desc">Creamy traditional milk ice cream with saffron & cardamom. Kallakurichi's favourite way to end a meal.</div>
+          <div class="card-footer">
+            <div class="card-price">₹50 <span>/ cup</span></div>
+            <button class="order-btn">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALS BANNER -->
+<div class="specials-banner">
+  <h2>⚡ MATCHDAY MADNESS DEAL ⚡</h2>
+  <p>On every RCB match day — get 20% off your entire order + a free Filter Coffee</p>
+  <a href="#contact" class="btn-secondary" style="display:inline-block">Book Your Table</a>
+</div>
+
+<!-- RCB SIGNATURE ITEMS -->
+<section id="rcb-specials">
+  <div class="text-center">
+    <p class="section-tag">Exclusive to AB Fast Food</p>
+    <h2 class="section-title">RCB <span>Signature</span> Items</h2>
+    <div class="gold-line" style="margin:0 auto 1rem;"></div>
+    <p style="color:#888;max-width:500px;margin:0 auto;">Named after legends. Crafted with Tamil Nadu fire.</p>
+  </div>
+  <div class="specials-grid">
+    <div class="special-card">
+      <img class="special-card-img" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&q=80" alt="Virat Special Biryani" loading="lazy">
+      <div class="special-card-body">
+        <div class="special-name">The Virat Special Biryani</div>
+        <div class="special-desc">Extra-spicy Dindigul chicken biryani — aggressive, powerful & unforgettable. Just like the man himself.</div>
+        <div class="special-price">₹220</div>
+      </div>
+    </div>
+    <div class="special-card">
+      <img class="special-card-img" src="https://images.unsplash.com/photo-1567337710282-00832b415979?w=500&q=80" alt="ABD 360 Platter" loading="lazy">
+      <div class="special-card-body">
+        <div class="special-name">ABD 360 Tamil Platter</div>
+        <div class="special-desc">Full spread — Biryani, Parotta, Chicken 65, Kara Sundal, Filter Coffee & Payasam. The complete 360 experience.</div>
+        <div class="special-price">₹380</div>
+      </div>
+    </div>
+    <div class="special-card">
+      <img class="special-card-img" src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=500&q=80" alt="Morning Powerplay" loading="lazy">
+      <div class="special-card-body">
+        <div class="special-name">Morning Powerplay Combo</div>
+        <div class="special-desc">Masala Dosa + Idli (2 pcs) + Filter Coffee + Halwa. The perfect opening over for your appetite.</div>
+        <div class="special-price">₹160</div>
+      </div>
+    </div>
+    <div class="special-card">
+      <img class="special-card-img" src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500&q=80" alt="Chettinad Feast" loading="lazy">
+      <div class="special-card-body">
+        <div class="special-name">Chettinad Feast Platter</div>
+        <div class="special-desc">Chettinad Chicken Curry + Steamed Rice + Sambar + Rasam + Papad + Buttermilk. A full Tamil Nadu meal.</div>
+        <div class="special-price">₹250</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIBES -->
+<section id="vibes">
+  <p class="section-tag">Experience</p>
+  <h2 class="section-title">The <span>Vibe</span></h2>
+  <div class="gold-line" style="margin:0 auto 1rem;"></div>
+  <p style="color:#888;max-width:500px;margin:0 auto;">More than a restaurant. A cricketing sanctuary with Tamil soul.</p>
+  <div class="vibes-grid">
+    <div class="vibe-card featured">
+      <div class="vibe-icon">📺</div>
+      <div class="vibe-title">Live Match Screening</div>
+      <div class="vibe-desc">Every IPL match screened LIVE on our giant 120" LED wall. Surround sound, curated commentary, and the electric energy of 150+ fans watching together. Your stadium away from the stadium.</div>
+    </div>
+    <div class="vibe-card">
+      <div class="vibe-icon">🏆</div>
+      <div class="vibe-title">Trophy Room</div>
+      <div class="vibe-desc">A dedicated wall of RCB memorabilia, autographed jerseys, and cricket artefacts spanning 15+ seasons.</div>
+    </div>
+    <div class="vibe-card">
+      <div class="vibe-icon">🎮</div>
+      <div class="vibe-title">Cricket Arcade</div>
+      <div class="vibe-desc">Indoor cricket batting cages & arcade games. Challenge friends before your meal.</div>
+    </div>
+    <div class="vibe-card">
+      <div class="vibe-icon">📸</div>
+      <div class="vibe-title">Photo Zone</div>
+      <div class="vibe-desc">Full RCB-kit photo setup with props & backdrops. Perfect for your next Instagram post.</div>
+    </div>
+    <div class="vibe-card">
+      <div class="vibe-icon">🎵</div>
+      <div class="vibe-title">Match Day DJ</div>
+      <div class="vibe-desc">Live DJ sets on match days. The beats hit as hard as a Kohli cover drive.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM SECTION -->
+<section id="instagram">
+  <p class="section-tag">Follow Us</p>
+  <h2 class="section-title">On <span>Instagram</span></h2>
+  <div class="gold-line" style="margin:0 auto 1rem;"></div>
+  <p style="color:#888;max-width:500px;margin:0 auto;">Stay updated with daily specials, match-day deals & behind-the-scenes from AB Fast Food!</p>
+  <div class="insta-card">
+    <div class="insta-avatar">📸</div>
+    <div class="insta-handle">@<span>_crixx_giri_17</span></div>
+    <div class="insta-bio">
+      🔴 AB Fast Food · Kallakurichi<br>
+      🏏 RCB Fan Zone · Tamil Nadu Flavours<br>
+      🌶️ Bold Food for Bold Fans<br>
+      📍 Kallakurichi Bus Stand Opposite
+    </div>
+    <a href="https://www.instagram.com/_crixx_giri_17?igsh=MWZtbHE2b2phdzhzNA==" target="_blank" class="insta-btn">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Follow on Instagram
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p class="section-tag">Find Us</p>
+      <h2 class="section-title">Visit <span>Us</span></h2>
+      <div class="gold-line"></div>
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-text">
+          <h4>Address</h4>
+          <p>Kallakurichi Bus Stand Opposite,<br>Kallakurichi — 606213<br>Tamil Nadu, India</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">⏰</div>
+        <div class="info-text">
+          <h4>Hours</h4>
+          <p>Mon–Thu: 7:00 AM – 11:00 PM<br>Fri–Sat: 7:00 AM – 1:00 AM<br>Sun: 7:00 AM – 11:00 PM<br><strong style="color:var(--rcb-red)">Match Days: Open till 2:00 AM</strong></p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div class="info-text">
+          <h4>Call Us</h4>
+          <a href="tel:+919003114280" class="btn-primary" style="display:inline-block;margin-top:0.5rem;text-decoration:none;">📞 Call Now</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">✉️</div>
+        <div class="info-text">
+          <h4>Email</h4>
+          <p>girinathe17@gmail.com</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">📷</div>
+        <div class="info-text">
+          <h4>Instagram</h4>
+          <a href="https://www.instagram.com/_crixx_giri_17?igsh=MWZtbHE2b2phdzhzNA==" target="_blank" class="insta-nav-btn" style="display:inline-flex;margin-top:0.5rem;">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            @_crixx_giri_17
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="reservation-form">
+      <h3>🏏 Reserve Your Table</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Guests</label>
+          <select>
+            <option>1 Person</option>
+            <option>2 People</option>
+            <option>3-4 People</option>
+            <option>5-6 People</option>
+            <option>7+ People</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Occasion</label>
+          <select>
+            <option>Match Screening</option>
+            <option>Birthday</option>
+            <option>Anniversary</option>
+            <option>Team Outing</option>
+            <option>Just Eating!</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Special Requests</label>
+        <textarea placeholder="Any special requirements, dietary needs, or RCB-related requests..."></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%;text-align:center;display:block;margin-top:0.5rem;" onclick="handleReservation()">
+        Book My Table 🏏
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>AB</span> <em>FAST</em> <span>FOOD</span></div>
+  <p class="footer-tagline">🔴 Ee Sala Cup Namde · Play Bold. Eat Bold. 🔴</p>
+  <div style="margin-bottom:1.5rem;">
+    <a href="https://www.instagram.com/_crixx_giri_17?igsh=MWZtbHE2b2phdzhzNA==" target="_blank" class="footer-insta">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Follow @_crixx_giri_17
+    </a>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#rcb-specials">RCB Specials</a></li>
+    <li><a href="#vibes">Vibes</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2024 AB Fast Food, Kallakurichi. Made with <span>❤️</span> for the Red Army.</p>
+</footer>
+
+<script>
+  function showTab(tabName) {
+    document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabName).classList.add('active');
+    event.target.classList.add('active');
+  }
+  function handleReservation() {
+    alert('🏏 Your table has been reserved!\n\nWe\'ll confirm shortly.\n\nEe Sala Cup Namde! 🔴');
+  }
+
+  /* ===================== CART SYSTEM ===================== */
+  let cart = JSON.parse(localStorage.getItem('abff_cart') || '[]');
+
+  function saveCart() {
+    localStorage.setItem('abff_cart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  function addToCart(name, price, img, btn) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ name, price, img, qty: 1 });
+    }
+    saveCart();
+    showToast(`${name} added to cart 🛒`);
+    if (btn) {
+      btn.classList.add('added');
+      btn.textContent = 'Added ✓';
+      setTimeout(() => { btn.classList.remove('added'); btn.textContent = 'Order'; }, 1200);
+    }
+  }
+
+  function changeQty(index, delta) {
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) cart.splice(index, 1);
+    saveCart();
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    saveCart();
+  }
+
+  function cartTotal() {
+    return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  }
+
+  function renderCart() {
+    const container = document.getElementById('cartItemsContainer');
+    const footer = document.getElementById('cartFooter');
+    const countEl = document.getElementById('cartCount');
+    const totalCount = cart.reduce((s, i) => s + i.qty, 0);
+
+    if (totalCount > 0) {
+      countEl.style.display = 'flex';
+      countEl.textContent = totalCount;
+    } else {
+      countEl.style.display = 'none';
+    }
+
+    if (cart.length === 0) {
+      container.innerHTML = '<div class="cart-empty">Your cart is empty.<br>Go bold, add some food! 🔴</div>';
+      footer.style.display = 'none';
+      return;
+    }
+
+    footer.style.display = 'block';
+    container.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${item.name}">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">₹${item.price * item.qty}</div>
+          <div class="cart-qty-controls">
+            <button onclick="changeQty(${idx},-1)">−</button>
+            <span>${item.qty}</span>
+            <button onclick="changeQty(${idx},1)">+</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" onclick="removeItem(${idx})">✕ Remove</button>
+      </div>
+    `).join('');
+    document.getElementById('cartTotal').textContent = '₹' + cartTotal();
+  }
+
+  function openCart() {
+    document.getElementById('cartOverlay').classList.add('open');
+    document.getElementById('cartDrawer').classList.add('open');
+  }
+  function closeCart() {
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.getElementById('cartDrawer').classList.remove('open');
+  }
+
+  function openCheckout() {
+    if (cart.length === 0) return;
+    const summary = document.getElementById('checkoutSummary');
+    summary.innerHTML = cart.map(i => `<div><span>${i.name} x${i.qty}</span><span>₹${i.price * i.qty}</span></div>`).join('')
+      + `<div style="border-top:1px solid rgba(255,255,255,0.1);margin-top:6px;padding-top:6px;"><span style="color:#fff;font-weight:600;">Total</span><span style="color:var(--rcb-gold);font-weight:600;">₹${cartTotal()}</span></div>`;
+    closeCart();
+    document.getElementById('checkoutOverlay').classList.add('open');
+  }
+  function closeCheckout() {
+    document.getElementById('checkoutOverlay').classList.remove('open');
+  }
+
+  function placeOrder() {
+    const name = document.getElementById('custName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const address = document.getElementById('custAddress').value.trim();
+
+    if (!name || !phone) {
+      alert('Please enter your name and phone number 🏏');
+      return;
+    }
+
+    const order = {
+      id: 'ORD' + Date.now(),
+      customer: { name, phone, address },
+      items: cart,
+      total: cartTotal(),
+      placedAt: new Date().toISOString()
+    };
+
+    /* ============================================================
+       BACKEND HOOK — Step 2 (Node.js + Express + MongoDB):
+       Once the backend is ready, replace the block below with:
+
+       fetch('https://your-backend-url.com/api/orders', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(order)
+       })
+       .then(res => res.json())
+       .then(data => { ...show confirmation using data.orderId... })
+       .catch(err => alert('Order failed, please try again or call us directly.'));
+
+       This will save the order to MongoDB and trigger an alert
+       (Telegram/Email) to the owner automatically.
+       ============================================================ */
+
+    console.log('ORDER PLACED (local only, backend not connected yet):', order);
+
+    cart = [];
+    saveCart();
+    closeCheckout();
+    alert(`🏏 Order Placed!\n\nOrder ID: ${order.id}\nTotal: ₹${order.total}\n\nWe'll call you shortly to confirm.\nEe Sala Cup Namde! 🔴\n\n(Note: backend not connected yet — this order is not saved on the server.)`);
+  }
+
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+
+  /* Wire up every "Order" button on the menu */
+  document.querySelectorAll('.order-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const card = this.closest('.menu-card');
+      const name = card.querySelector('.card-name').textContent.trim();
+      const priceText = card.querySelector('.card-price').childNodes[0].textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''), 10);
+      const img = card.querySelector('img').src;
+      addToCart(name, price, img, this);
+    });
+  });
+
+  renderCart();
+  /* ===================== END CART SYSTEM ===================== */
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.menu-card,.stat-card,.vibe-card,.special-card,.info-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease,transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
